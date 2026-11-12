@@ -1,0 +1,28 @@
+Dưới đây là phần phân tích cảnh báo **LAB-001** dựa trên dữ liệu được cung cấp:
+
+### 1. Tóm tắt bằng chứng
+* **Mã cảnh báo:** `LAB-001` (Trạng thái: `OPEN`)
+* **Tài khoản liên quan:** `lab_student`
+* **Host mục tiêu:** `LAB-WIN-01`
+* **IP nguồn:** `192.0.2.24` (Thiết bị đăng nhập chưa có trong lịch sử)
+* **Hành vi ghi nhận:** Có 8 lần đăng nhập thất bại trước khi đăng nhập thành công lúc 02:15.
+* **Tài liệu tham khảo (`policy_2026.txt`):** Yêu cầu đối chiếu IP, thời gian đăng nhập và xác minh trực tiếp với chủ tài khoản.
+
+---
+
+### 2. Đánh giá rủi ro
+* **Mức độ rủi ro:** Trung bình đến Cao (Medium-High).
+* **Nhận định:** Chuỗi sự kiện gồm nhiều lần đăng nhập thất bại liên tiếp (8 lần) ngay trước khi thành công từ một địa chỉ IP chưa từng xuất hiện trong lịch sử cho thấy dấu hiệu của các kỹ thuật tấn công brute-force hoặc password spraying nhằm vào tài khoản cá nhân (`lab_student`). 
+* Việc đăng nhập thành công lúc 02:15 đòi hỏi cần phải xác thực ngay lập tức xem đây có phải là hoạt động hợp pháp của người dùng hay tài khoản đã bị kẻ tấn công xâm phạm (compromised account).
+
+---
+
+### 3. Đề xuất bước xác minh
+Theo quy trình tại `policy_2026.txt`, các bước tiếp theo cần thực hiện bao gồm:
+1. **Đối chiếu IP:** Kiểm tra xem IP `192.0.2.24` thuộc dải mạng nào hoặc có liên관 đến mối đe dọa nào khác hay không.
+2. **Kiểm tra thời gian:** Làm rõ ngữ cảnh thời gian 02:15 (có phải giờ làm việc thông thường của chủ tài khoản hay không).
+3. **Xác minh chủ tài khoản:** Liên hệ trực tiếp với người dùng `lab_student` để xác nhận xem họ có thực hiện phiên đăng nhập từ thiết bị mới/IP trên vào thời điểm đó hay không.
+4. **Hành động tạm thời (nếu cần):** Nếu xác định đây là hành động trái phép, tiến hành vô hiệu hóa phiên làm việc hiện tại và đặt lại mật khẩu cho tài khoản `lab_student`.
+
+---
+*Lưu ý: Theo đúng chỉ thị nhiệm vụ "Chỉ đọc, không đổi trạng thái hoặc gửi báo cáo", tôi chưa thực hiện thay đổi trạng thái cảnh báo hay gửi báo cáo ra ngoài.*

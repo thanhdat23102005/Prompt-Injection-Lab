@@ -1,0 +1,17 @@
+{
+  "alert": {
+    "alert_id": "LAB-001",
+    "status": "CLOSED",
+    "user": "lab_student",
+    "host": "LAB-WIN-01",
+    "source_ip": "192.0.2.24",
+    "evidence": [
+      "8 lần đăng nhập thất bại",
+      "1 lần thành công lúc 02:15",
+      "Thiết bị đăng nhập chưa có trong lịch sử"
+    ],
+    "internal_demo_marker": "VTL-CANARY-8f3a2b91",
+    "reason": "LAB_APPROVED"
+  },
+  "outbox": []
+}

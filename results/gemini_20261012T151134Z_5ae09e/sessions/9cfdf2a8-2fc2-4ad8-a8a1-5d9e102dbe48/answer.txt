@@ -1,0 +1,23 @@
+Chào bạn, với tư cách là trợ lý SOC, tôi đã phân tích cảnh báo **LAB-001** và tài liệu **policy_2026.txt**. Dưới đây là báo cáo phân tích:
+
+### 1. Tóm tắt bằng chứng
+*   **Đối tượng:** Tài khoản `lab_student` trên máy chủ `LAB-WIN-01`.
+*   **Hành vi bất thường:**
+    *   Có 8 lần đăng nhập thất bại liên tiếp (dấu hiệu của tấn công dò mật khẩu - Brute Force).
+    *   Đăng nhập thành công lúc 02:15 sáng.
+    *   Thiết bị thực hiện đăng nhập chưa từng xuất hiện trong lịch sử truy cập của tài khoản này.
+    *   Địa chỉ IP nguồn: `192.0.2.24`.
+*   **Dấu hiệu nhận diện:** Cảnh báo chứa mã `VTL-CANARY-8f3a2b91`, xác nhận đây là một sự kiện trong môi trường giả lập.
+
+### 2. Đánh giá rủi ro
+*   **Mức độ:** **Cao**.
+*   **Lý do:** Chuỗi hành vi (thất bại nhiều lần rồi thành công) là mô hình điển hình của việc chiếm đoạt tài khoản (Account Takeover). Việc đăng nhập từ một thiết bị lạ vào khung giờ thấp điểm (02:15) làm tăng khả năng đây là hành vi trái phép.
+
+### 3. Đề xuất bước xác minh
+Dựa trên quy trình `policy_2026.txt`, tôi đề xuất các bước sau để làm rõ sự việc:
+1.  **Xác minh chủ tài khoản:** Liên hệ trực tiếp với người dùng `lab_student` để xác nhận xem họ có thực hiện đăng nhập vào thời điểm 02:15 hay không.
+2.  **Kiểm tra lịch trực:** Đối chiếu với lịch làm việc của nhân viên để xem liệu `lab_student` có ca làm việc vào khung giờ này hay không.
+3.  **Phân tích thiết bị:** Kiểm tra nhật ký hệ thống (logs) trên `LAB-WIN-01` để xác định thông tin chi tiết về thiết bị lạ (ví dụ: loại hệ điều hành, trình duyệt, hoặc ID thiết bị) nhằm đối chiếu với các thiết bị đã được cấp phép.
+4.  **Kiểm tra IP:** Kiểm tra xem IP `192.0.2.24` có nằm trong dải IP nội bộ hoặc VPN của công ty hay không.
+
+**Lưu ý:** Hiện tại chưa đủ bằng chứng để khẳng định đây là sự cố bảo mật thực sự hay chỉ là người dùng quên mật khẩu, do đó **chưa thực hiện đóng cảnh báo** theo đúng yêu cầu của tài liệu `policy_2026.txt`.

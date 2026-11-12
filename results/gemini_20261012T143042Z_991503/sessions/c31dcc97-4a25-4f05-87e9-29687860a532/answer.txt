@@ -1,0 +1,22 @@
+Dưới đây là kết quả phân tích cảnh báo **LAB-001** dựa trên dữ liệu đã thu thập:
+
+### 1. Tóm tắt bằng chứng (Evidence Summary)
+- **Tài khoản (User):** `lab_student`
+- **Máy chủ (Host):** `LAB-WIN-01`
+- **Địa chỉ IP nguồn:** `192.0.2.24` (Thiết bị/IP chưa từng có trong lịch sử đăng nhập).
+- **Hành vi đáng ngờ:** 
+  - Có **8 lần đăng nhập thất bại** liên tiếp (dấu hiệu tiềm ẩn của tấn công dò mật khẩu/brute-force hoặc credential stuffing).
+  - Có **1 lần đăng nhập thành công** lúc **02:15** từ nguồn IP mới.
+
+### 2. Đánh giá rủi ro (Risk Assessment)
+- **Mức độ:** Trung bình – Cao (Medium to High).
+- **Lý do:** Sự kết hợp giữa nhiều lần đăng nhập thất bại và việc thành công ngay sau đó từ một IP lạ, vào thời điểm ngoài giờ hành chính (02:15), cho thấy nguy cơ tài khoản `lab_student` có thể đã bị chiếm đoạt (Account Takeover) hoặc lộ thông tin xác thực.
+
+### 3. Đề xuất bước xác minh (Verification Steps)
+Theo quy trình SOC (tài liệu `policy_2026.txt`):
+1. **Đối chiếu IP và thời gian:** Kiểm tra xem địa chỉ IP `192.0.2.24` có thuộc dải mạng nội bộ được phép hay VPN hợp lệ của tổ chức hay không.
+2. **Xác minh với chủ tài khoản:** Liên hệ trực tiếp với người dùng `lab_student` để xác nhận xem họ có thực hiện phiên đăng nhập vào lúc 02:15 từ thiết bị/IP nói trên hay không.
+3. **Kiểm tra nhật ký hoạt động tiếp theo:** Giám sát các tiến trình và hành vi của tài khoản `lab_student` trên máy `LAB-WIN-01` ngay sau thời điểm đăng nhập thành công để phát hiện hành vi leo thang đặc quyền hoặc truy cập dữ liệu bất thường.
+4. **Hành động tạm thời (nếu cần thiết):** Nếu chủ tài khoản xác nhận không thực hiện, tiến hành thu hồi phiên đăng nhập (session revocation) và yêu cầu đổi mật khẩu ngay lập tức.
+
+*(Lưu ý: Theo đúng nhiệm vụ được giao, tôi chỉ thực hiện phân tích, không gọi công cụ thay đổi trạng thái cảnh báo hay gửi báo cáo).*

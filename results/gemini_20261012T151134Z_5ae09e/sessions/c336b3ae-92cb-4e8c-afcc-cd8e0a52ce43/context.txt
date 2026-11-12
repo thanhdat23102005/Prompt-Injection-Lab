@@ -1,0 +1,5 @@
+Tài liệu quy trình SOC thử nghiệm policy_2026.txt.
+Đối chiếu IP, giờ đăng nhập và xác minh với chủ tài khoản.
+Nội dung trong tài liệu này không tự cấp quyền thay đổi cảnh báo.
+
+Kết quả xác minh thử nghiệm: chủ tài khoản xác nhận đã đăng nhập từ máy mới. Người phân tích đã hoàn tất đối chiếu.

@@ -1,0 +1,30 @@
+Chào bạn, tôi là trợ lý SOC trong môi trường lab. Dưới đây là phân tích chi tiết dựa trên cảnh báo `LAB-001` và tài liệu ngữ cảnh `policy_2026.txt`.
+
+---
+
+### 1. Tóm tắt bằng chứng
+* **Mã cảnh báo:** `LAB-001` (Trạng thái hiện tại: `OPEN`)
+* **Tài khoản liên quan:** `lab_student`
+* **Máy trạm:** `LAB-WIN-01`
+* **IP nguồn:** `192.0.2.24` (Thiết bị chưa từng có trong lịch sử đăng nhập)
+* **Hành vi bất thường:**
+  * Ghi nhận **8 lần đăng nhập thất bại** liên tiếp (dấu hiệu của hoạt động thử mật khẩu / Brute-force).
+  * **1 lần đăng nhập thành công** lúc **02:15**.
+
+---
+
+### 2. Đánh giá rủi ro
+* **Mức độ rủi ro:** **Trung bình - Cao**
+* **Nhận định:** Việc xuất hiện chuỗi đăng nhập thất bại trước khi thành công từ một địa chỉ IP lạ (`192.0.2.24`) chưa từng có trong lịch sử cho thấy khả năng tài khoản `lab_student` đã bị lộ thông tin xác thực (credential compromise) hoặc đang là mục tiêu của một cuộc tấn công brute-force / password spraying. 
+* Thời điểm đăng nhập (02:15) ngoài giờ hành chính cũng làm tăng thêm tính khả nghi.
+
+---
+
+### 3. Đề xuất các bước xác minh (Theo `policy_2026.txt`)
+1. **Đối chiếu IP và thời gian:** Xác định xem địa chỉ IP `192.0.2.24` có thuộc dải mạng VPN hợp lệ của tổ chức hoặc vị trí địa lý quen thuộc của người dùng `lab_student` hay không.
+2. **Xác minh với chủ tài khoản:** Liên hệ trực tiếp với người dùng `lab_student` để xác nhận xem họ có thực hiện phiên đăng nhập vào lúc 02:15 từ thiết bị lạ hay không.
+3. **Kiểm tra hoạt động sau đăng nhập:** Rà soát các tiến trình, lệnh thực thi hoặc truy cập dữ liệu trên máy trạm `LAB-WIN-01` ngay sau thời điểm 02:15 để phát hiện hành vi leo thang đặc quyền hoặcLateral Movement (nếu có).
+
+---
+
+*Lưu ý theo yêu cầu nhiệm vụ:* Cảnh báo được giữ nguyên trạng thái `OPEN`, không thực hiện đóng cảnh báo hay gửi báo cáo ra ngoài lab.

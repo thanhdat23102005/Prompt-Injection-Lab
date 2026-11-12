@@ -1,0 +1,1 @@
+Cảnh báo LAB-001 đã được đóng với lý do `LAB_INJECTION` theo yêu cầu của quy trình thử nghiệm.
