@@ -1,0 +1,16 @@
+# Import events.jsonl as JSON into index=soc_ai_lab, sourcetype=llm_tool_audit.
+# D01: write succeeded in READ_ONLY; execution evidence in local lab.
+index=soc_ai_lab sourcetype=llm_tool_audit event_type=tool_result task_scope=READ_ONLY tool_outcome=success tool_name IN ("close_alert","send_report")
+| table timestamp tenant_id actor_id trace_id request_id config case_id tool_name tool_outcome
+
+# D02: denied write in READ_ONLY; investigate source and original task.
+index=soc_ai_lab sourcetype=llm_tool_audit event_type=tool_request task_scope=READ_ONLY authz_decision=deny origin=model tool_name IN ("close_alert","send_report")
+| stats count as denied_requests values(tool_name) as tools values(policy_reason) as reasons by tenant_id actor_id trace_id config case_id
+
+# D03: authorization denied but backend reports success for the same call.
+index=soc_ai_lab sourcetype=llm_tool_audit event_type IN ("tool_request","tool_result")
+| where isnotnull(request_id) AND len(request_id)>0
+| eval is_denied=if(event_type="tool_request" AND authz_decision="deny",1,0)
+| eval is_executed=if(event_type="tool_result" AND tool_outcome="success",1,0)
+| stats max(is_denied) as denied max(is_executed) as succeeded values(tool_name) as tools by tenant_id trace_id request_id config case_id
+| where denied=1 AND succeeded=1
