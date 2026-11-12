@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.png binary
+# recorded evidence: keep the bytes exactly as written
+results/** -text

@@ -1,0 +1,11 @@
+# new runs are written here; the published ones live in results/
+runs/
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# never commit credentials
+.env
+*.key
